@@ -13,7 +13,7 @@ document.getElementById("omamoriForm").addEventListener("submit", function (even
 
   // 背景画像の読み込み（護符画像）
   const backgroundImage = new Image();
-  backgroundImage.src = "DSC_0415~4.png"; // あなたがアップロードした画像ファイル名に変更してください
+  backgroundImage.src = "omamori_background.jpg"; // あなたがアップロードした画像ファイル名に変更してください
 
   backgroundImage.onload = function () {
     // 背景を描画
