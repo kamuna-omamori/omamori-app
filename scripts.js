@@ -43,13 +43,3 @@ document.getElementById("omamoriForm").addEventListener("submit", function (even
 });
 
 
-
-  const adviceList = {
-    "健康": "日々の小さな疲れに気づいて休むことが健康への第一歩です。",
-    "家内安全": "家庭の空気はあなたの心を映します。笑顔のあいさつを忘れずに。",
-    "恋愛成就": "まず自分自身を大切にすることが、良縁を引き寄せます。"
-  };
-  const adviceContainer = document.getElementById("adviceContainer");
-  const advice = adviceList[wish] || "あなたの願いが叶いますように。";
-  if (adviceContainer) adviceContainer.textContent = advice;
-});
