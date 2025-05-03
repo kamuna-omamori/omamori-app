@@ -34,14 +34,15 @@ window.addEventListener("DOMContentLoaded", function () {
     ctx.restore();
   };
 
-  const videos = [
-    "https://www.youtube.com/embed/Y5OBGcH-fSM?autoplay=1",
-    "https://www.youtube.com/embed/BT4fKJz1ebc?autoplay=1",
-    "https://www.youtube.com/embed/xadgNW7xEes?autoplay=1"
+   const videoUrls = [
+    "https://www.youtube.com/embed/Jtgcss9Fygo?autoplay=1",
+    "https://www.youtube.com/embed/P1fGiun03Sk?autoplay=1",
+    "https://www.youtube.com/embed/2DxSSjdH63c?autoplay=1",
+    "https://www.youtube.com/embed/cHcDAJ9Au0E?autoplay=1",
+    "https://www.youtube.com/embed/7sIHFbId6SE?autoplay=1"
   ];
-  const randomVideo = videos[Math.floor(Math.random() * videos.length)];
-  const iframe = document.getElementById("healingVideo");
-  if (iframe) iframe.src = randomVideo;
+  const selectedUrl = videoUrls[Math.floor(Math.random() * videoUrls.length)];
+  document.getElementById("healingVideo").src = selectedUrl;
 
   const adviceList = {
     "健康": "日々の小さな疲れに気づいて休むことが健康への第一歩です。",
