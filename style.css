@@ -147,3 +147,12 @@ button:hover {
   color: #333;
 }
 
+#particleCanvas {
+  position: absolute;
+  left: 50%;
+  top: 180px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 2;
+}
+
