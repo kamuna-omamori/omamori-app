@@ -6,7 +6,6 @@ document.getElementById("omamoriForm").addEventListener("submit", function (even
   const customWish = document.getElementById("customWish").value.trim();
   const wish = customWish || wishSelect;
 
-  // 管理者パスワード（仮設定：変更OK）
   const adminPassword = "kamunaadmin999";
   const isAdmin = customWish === adminPassword;
 
@@ -14,30 +13,26 @@ document.getElementById("omamoriForm").addEventListener("submit", function (even
   const lastGenerated = localStorage.getItem("lastGenerated");
   const twelveHours = 12 * 60 * 60 * 1000;
 
-  // 管理者以外は時間制限をチェック
   if (!isAdmin && lastGenerated && now - parseInt(lastGenerated) < twelveHours) {
-  document.querySelector(".container").innerHTML = `
-    <h2 style="font-weight: bold;">⚠ 御守りは1日1回まで</h2>
-    <p style="font-size: 16px; line-height: 1.6;">
-      しっかりエネルギーを届けるために、御守りの生成は1日1回までに設定しています。<br><br>
-      また明日、お越しくださいね🌿
-    </p>
-
-    <br><br>
-
-    <div class="tsukimi-box">
-      <p class="tsukimi-title">🌑 新月の大祓会（Zoom）ご案内 🌑</p>
-      <a class="tsukimi-button" href="https://docs.google.com/forms/d/e/1FAIpQLSfpOiJ8jg00s8nSXmiD6kzCUOJP19XhNR0mb9WFrAjxTfbEFw/viewform?usp=dialog" target="_blank">
-        ▶ ご参加はこちら
-      </a>
-      <p class="tsukimi-text">
-        KAMUNAの祈りと祓いの会を新月の日に行っています。<br><br>
-        このアプリで神秘的なエネルギーを感じた方は、ぜひご参加ください。
+    document.querySelector(".container").innerHTML = `
+      <h2 style="font-weight: bold;">⚠ 御守りは1日1回まで</h2>
+      <p style="font-size: 16px; line-height: 1.6;">
+        しっかりエネルギーを届けるために、御守りの生成は1日1回までに設定しています。<br><br>
+        また明日、お越しくださいね🌿
       </p>
-    </div>
-  `;
-  return;
-}
+
+      <br><br>
+
+      <div class="tsukimi-box">
+        <p class="tsukimi-title">🌑 新月の大祓会（Zoom）ご案内 🌑</p>
+        <a class="tsukimi-button" href="https://docs.google.com/forms/d/e/1FAIpQLSfpOiJ8jg00s8nSXmiD6kzCUOJP19XhNR0mb9WFrAjxTfbEFw/viewform?usp=dialog" target="_blank">
+          ▶ ご参加はこちら
+        </a>
+        <p class="tsukimi-text">
+          KAMUNAの祈りと祓いの会を新月の日に行っています。<br><br>
+          このアプリで神秘的なエネルギーを感じた方は、ぜひご参加ください。
+        </p>
+      </div>
 
       <br><br>
 
@@ -53,12 +48,10 @@ document.getElementById("omamoriForm").addEventListener("submit", function (even
     return;
   }
 
-  // 管理者以外ならアクセス時刻を記録
   if (!isAdmin) {
     localStorage.setItem("lastGenerated", now);
   }
 
-  // 次のページへ名前と願いを渡して遷移
   const query = `name=${encodeURIComponent(name)}&wish=${encodeURIComponent(wish)}`;
   window.location.href = `result.html?${query}`;
 });
