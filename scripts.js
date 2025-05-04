@@ -21,10 +21,29 @@ window.addEventListener("DOMContentLoaded", function () {
   const twelveHours = 12 * 60 * 60 * 1000;
 
   if (!isAdmin && lastGenerated && now - parseInt(lastGenerated) < twelveHours) {
-    // 制限中は護符を表示せず、動画だけ
-    console.log("御守り生成は制限中です");
-    return;
-  }
+  document.querySelector(".container").innerHTML = `
+    <h2 style="font-weight: bold;">⚠ 御守りは1日1回まで</h2>
+    <p style="font-size: 16px; line-height: 1.6;">
+      しっかりエネルギーを届けるために、御守りの生成は1日1回までに設定しています。<br><br>
+      また明日、お越しくださいね🌿
+    </p>
+
+    <br><br>
+
+    <div class="tsukimi-box">
+      <p class="tsukimi-title">🌑 新月の大祓会（Zoom）ご案内 🌑</p>
+      <a class="tsukimi-button" href="https://docs.google.com/forms/d/e/1FAIpQLSfpOiJ8jg00s8nSXmiD6kzCUOJP19XhNR0mb9WFrAjxTfbEFw/viewform?usp=dialog" target="_blank">
+        ▶ ご参加はこちら
+      </a>
+      <p class="tsukimi-text">
+        KAMUNAの祈りと祓いの会を新月の日に行っています。<br><br>
+        このアプリで神秘的なエネルギーを感じた方は、ぜひご参加ください。
+      </p>
+    </div>
+  `;
+  return;
+}
+
 
   // 制限を記録（管理者以外）
   if (!isAdmin) {
