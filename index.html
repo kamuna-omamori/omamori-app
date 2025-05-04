@@ -8,35 +8,36 @@
   <style>
     body {
       font-family: "Hiragino Mincho Pro", "Yu Mincho", serif;
-      background-color: #fdfaf5;
+      background-color: #faf8f3;
       margin: 0;
       padding: 20px;
+      color: #333;
     }
 
     .container {
       max-width: 600px;
       margin: 0 auto;
-      background: rgba(255, 255, 255, 0.96);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background: #ffffffee;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
       text-align: center;
     }
 
     h1 {
-      font-size: 26px;
+      font-size: 28px;
       color: #7a4b00;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .subtitle {
-      font-size: 18px;
-      color: #444;
-      margin-bottom: 30px;
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 28px;
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       text-align: left;
     }
 
@@ -44,60 +45,89 @@
       font-weight: bold;
       display: block;
       margin-bottom: 6px;
+      font-size: 15px;
     }
 
     input[type="text"],
     select {
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       font-size: 16px;
-      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
       box-sizing: border-box;
     }
 
     .section-box {
-      background: #f5f5f0;
-      border: 2px solid #d9cba5;
+      background: #f9f6ef;
+      border: 1.5px solid #dbc9a2;
       border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.06);
+      padding: 24px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
     }
 
     .section-title {
       font-size: 18px;
       font-weight: bold;
       color: #7a4b00;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .section-note {
-      font-size: 14px;
-      color: #666;
-      margin-top: 12px;
+      font-size: 13px;
+      color: #777;
+      margin-top: 14px;
       font-style: italic;
     }
 
     button {
-      margin-top: 12px;
-      padding: 12px 24px;
+      margin-top: 16px;
+      padding: 12px 28px;
       font-size: 16px;
       border: none;
-      background-color: #cc0000;
-      color: white;
+      background: linear-gradient(to bottom, #cc0000, #990000);
+      color: #fff;
       border-radius: 8px;
       cursor: pointer;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+      transition: background 0.2s ease;
     }
 
     button:hover {
-      background-color: #990000;
+      background: linear-gradient(to bottom, #b30000, #880000);
+    }
+
+    .pwa-guide {
+      background: #fff5db;
+      border: 1px solid #eedcb7;
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 14px;
+      color: #5a4420;
+      text-align: left;
+      max-width: 480px;
+      margin: 40px auto 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .pwa-guide strong {
+      display: block;
+      margin-top: 12px;
+      color: #7a4b00;
+    }
+
+    .pwa-guide::before {
+      content: "📱";
+      font-size: 20px;
+      display: block;
+      margin-bottom: 8px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>おまもり屋 KAMUNA</h1>
-<p class="subtitle">癒しと願いを込めた、1日1回の小さな祈り</p>
+    <p class="subtitle">癒しと願いを込めた、1日1回の小さな祈り</p>
 
     <form id="omamoriForm">
       <div class="form-group">
@@ -127,8 +157,19 @@
         <button type="submit">御守りを生成</button>
         <p class="section-note">※名前と願いの情報は保存されません。</p>
       </div>
-　　　 </div>      
     </form>
+  </div>
+
+  <div class="pwa-guide">
+    <strong>スマホでアプリのように使うには</strong>
+    <strong>【Android（Chrome）】</strong>
+    ・このページをChromeで開く<br>
+    ・「ホーム画面に追加」または「アプリをインストール」<br>
+    ・確認後「追加」→ ホームにKAMUNAアイコンが表示されます<br>
+    <strong>【iOS（Safari）】</strong>
+    ・このページをSafariで開く<br>
+    ・下の共有アイコン（⬆）→「ホーム画面に追加」<br>
+    ・アイコン名を確認し「追加」
   </div>
 
   <script>
@@ -147,21 +188,5 @@
       window.location.href = `result.html?name=${name}&wish=${wish}`;
     });
   </script>
-<div class="spacer"></div>
-<div style="background:#fff8e1; border-radius:8px; padding:20px; font-size:14px; color:#333; text-align:left; max-width:480px; margin:0 auto;">
-  📱 <strong>スマホのホーム画面に追加すると、アプリのように使えます！</strong><br><br>
-
-  <strong>【Android（Chrome）】</strong><br>
-  ・このページをChromeで開く<br>
-  ・画面下や右上メニューから「ホーム画面に追加」を選ぶ<br>
-  ・確認後「追加」→ ホーム画面にKAMUNAアイコンが表示されます<br><br>
-
-  <strong>【iOS（Safari）】</strong><br>
-  ・このページをSafariで開く<br>
-  ・画面下の共有アイコン（⬆）をタップ<br>
-  ・「ホーム画面に追加」→ アイコン名を確認し「追加」<br>
-</div>
-  
 </body>
 </html>
-
