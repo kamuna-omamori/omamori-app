@@ -1,12 +1,13 @@
-
 body {
+  background: url("assets/shrine_background.jpg") no-repeat center center fixed;
+  background-size: cover;
   font-family: "Hiragino Mincho Pro", "Yu Mincho", serif;
-  background-color: #f5f5f5;
   margin: 0;
   padding: 20px;
 }
+
 .container {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.9); /* 半透明にして背景が少し透ける */
   padding: 20px;
   border-radius: 8px;
   max-width: 600px;
