@@ -1,62 +1,55 @@
-document.getElementById("omamoriForm").addEventListener("submit", function (event) {
-  event.preventDefault();
+window.addEventListener("DOMContentLoaded", function () {
+  // URLパラメータからデータ取得
+  const params = new URLSearchParams(window.location.search);
+  const name = decodeURIComponent(params.get("name") || "");
+  const wish = decodeURIComponent(params.get("wish") || "");
 
-  const name = document.getElementById("nameInput").value.trim();
-  const wishSelect = document.getElementById("wishSelect").value;
-  const customWish = document.getElementById("customWish").value.trim();
-  const wish = customWish || wishSelect;
+  // 護符 Canvas 描画
+  const canvas = document.getElementById("omamoriCanvas");
+  const ctx = canvas.getContext("2d");
 
-  const adminPassword = "kamunaadmin999";
-  const isAdmin = customWish === adminPassword;
+  const bgImage = new Image();
+  bgImage.src = "assets/omamori_background.jpg"; // 正しいパスに注意！
 
-  const now = Date.now();
-  const lastGenerated = localStorage.getItem("lastGenerated");
-  const twelveHours = 12 * 60 * 60 * 1000;
+  bgImage.onload = function () {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
 
-  if (!name && !isAdmin) {
-    alert("お名前を入力してください。");
-    return;
-  }
+    const centerX = canvas.width / 2;
+    const lineHeight = 24;
 
-  if (!isAdmin && lastGenerated && now - parseInt(lastGenerated, 10) < twelveHours) {
-    document.querySelector(".container").innerHTML = `
-      <h2 style="font-weight: bold;">⚠ 御守りは1日1回まで</h2>
-      <p style="font-size: 16px; line-height: 1.6;">
-        しっかりエネルギーを届けるために、御守りの生成は1日1回までに設定しています。<br><br>
-        また明日、お越しくださいね🌿
-      </p>
+    ctx.fillStyle = "#000";
+    ctx.textAlign = "center";
 
-      <br><br>
+    // 名前と願い（縦書き、左右に分ける）
+    const totalLines = Math.max(name.length, wish.length);
+    const totalHeight = totalLines * lineHeight;
+    const startY = (canvas.height - totalHeight) / 2 + 10;
 
-      <div class="tsukimi-box">
-        <p class="tsukimi-title">🌑 新月の大祓会（Zoom）ご案内 🌑</p>
-        <a class="tsukimi-button" href="https://docs.google.com/forms/d/e/1FAIpQLSfpOiJ8jg00s8nSXmiD6kzCUOJP19XhNR0mb9WFrAjxTfbEFw/viewform?usp=dialog" target="_blank">
-          ▶ ご参加はこちら
-        </a>
-        <p class="tsukimi-text">
-          KAMUNAの祈りと祓いの会を新月の日に行っています。<br><br>
-          このアプリで神秘的なエネルギーを感じた方は、ぜひご参加ください。
-        </p>
-      </div>
+    ctx.font = "20px serif";
+    for (let i = 0; i < name.length; i++) {
+      ctx.fillText(name[i], centerX - 30, startY + i * lineHeight);
+    }
+    for (let j = 0; j < wish.length; j++) {
+      ctx.fillText(wish[j], centerX + 30, startY + j * lineHeight);
+    }
 
-      <br><br>
+    // ブランド名（左端に小さく縦書き）
+    const brandText = "おまもり屋 KAMUNA";
+    ctx.font = "14px serif";
+    for (let k = 0; k < brandText.length; k++) {
+      ctx.fillText(brandText[k], 20, 80 + k * lineHeight);
+    }
+  };
 
-      <div class="sns-links">
-        <p style="font-weight: bold;">KAMUNAのSNS</p>
-        <ul style="list-style: none; padding: 0;">
-          <li><a href="https://www.facebook.com/profile.php?id=61575515507055" target="_blank">Facebook</a></li>
-          <li><a href="https://www.instagram.com/kamuna_organic" target="_blank">Instagram</a></li>
-          <li><a href="https://note.com/kamuna_9999" target="_blank">note</a></li>
-        </ul>
-      </div>
-    `;
-    return;
-  }
-
-  if (!isAdmin) {
-    localStorage.setItem("lastGenerated", now);
-  }
-
-  const query = `name=${encodeURIComponent(name)}&wish=${encodeURIComponent(wish)}`;
-  window.location.href = `result.html?${query}`;
+  // ランダムなヒーリング動画を表示
+  const videoUrls = [
+    "https://www.youtube.com/embed/Jtgcss9Fygo?autoplay=1",
+    "https://www.youtube.com/embed/P1fGiun03Sk?autoplay=1",
+    "https://www.youtube.com/embed/2DxSSjdH63c?autoplay=1",
+    "https://www.youtube.com/embed/cHcDAJ9Au0E?autoplay=1",
+    "https://www.youtube.com/embed/7sIHFbId6SE?autoplay=1"
+  ];
+  const selected = videoUrls[Math.floor(Math.random() * videoUrls.length)];
+  document.getElementById("healingVideo").src = selected;
 });
