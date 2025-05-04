@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>御守り生成結果 - KAMUNA</title>
-  <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="style.css" />
   <style>
     .spacer { margin: 24px 0; }
@@ -38,15 +37,22 @@
   </div>
 
   <div class="container" style="text-align:center">
-    <h1 style="font-size: 22px; margin-bottom: 8px;">おまもり屋 KAMUNA</h1>
-    <p style="font-size: 14px; margin-bottom: 20px;">癒しと願いを込めた、1日1回の小さな祈り</p>
+    <h1>おまもり屋 KAMUNA</h1>
+    <p style="font-size:14px; color:gray;">
+      癒しと願いを込めた、1日1回の小さな祈り
+    </p>
+      <br/>
 
-    <h2 style="font-weight: bold;">あなたの御守り</h2>
+      <h2 style="font-weight: bold;">あなたの御守り</h2>
 
     <p style="font-size: 16px; line-height: 1.6;">
       生成された御守りを見ながら30秒 深呼吸。<br>
       身体の変化や空気の流れをやさしく感じてみましょう。
     </p>
+      <br/>
+
+
+    <div class="healing-message"></div>
 
     <canvas id="omamoriCanvas" width="270" height="380"></canvas>
 
@@ -105,7 +111,7 @@
     <br/>
     <br/>
 
-    <div class="sns-links">
+     <div class="sns-links">
       <p style="font-weight: bold;">KAMUNAのSNS</p>
       <ul style="list-style: none; padding: 0;">
         <li><a href="https://www.facebook.com/profile.php?id=61575515507055" target="_blank">Facebook</a></li>
@@ -122,10 +128,29 @@
 
   <script src="scripts.js"></script>
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js');
-      });
+    // healingVideo のランダム表示
+    const videoUrls = [
+      "https://www.youtube.com/embed/Jtgcss9Fygo?autoplay=1",
+      "https://www.youtube.com/embed/P1fGiun03Sk?autoplay=1",
+      "https://www.youtube.com/embed/2DxSSjdH63c?autoplay=1",
+      "https://www.youtube.com/embed/cHcDAJ9Au0E?autoplay=1",
+      "https://www.youtube.com/embed/7sIHFbId6SE?autoplay=1"
+    ];
+    const selected = videoUrls[Math.floor(Math.random() * videoUrls.length)];
+    document.getElementById("healingVideo").src = selected;
+
+    // 制限メッセージの処理
+    const params = new URLSearchParams(window.location.search);
+    const isLimited = params.get("limit") === "1";
+    if (isLimited) {
+      document.getElementById("omamoriCanvas").style.display = "none";
+      document.querySelector(".healing-message").innerHTML = `
+        <h2>🌿 また明日お越しください</h2>
+        <p style="font-size: 16px; line-height: 1.6;">
+          エネルギーをしっかり届けるため、御守りの生成は12時間に1回までとなっています。<br>
+          よければヒーリング動画をご覧になってリラックスしてください。
+        </p>
+      `;
     }
   </script>
 </body>
