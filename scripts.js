@@ -17,7 +17,7 @@ window.addEventListener("DOMContentLoaded", function () {
   const ctx = canvas.getContext("2d");
 
   const image = new Image();
-  image.src = "omamori.jpg";
+  image.src = "assets/omamori_background.jpg";
   image.onload = function () {
     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
     const name = localStorage.getItem("omamoriName") || "";
