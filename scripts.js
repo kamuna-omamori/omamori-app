@@ -24,34 +24,55 @@ window.addEventListener("DOMContentLoaded", function () {
   document.getElementById("healingVideo").src = selected;
 
   // 通常ユーザーで制限中なら護符非表示＆メッセージ表示
-  if (!isAdmin && (now - lastGenerated < twelveHours)) {
-    if (canvasEl) canvasEl.style.display = "none";
-    if (introMessageEl) introMessageEl.style.display = "none"; // ← 追加
+if (!isAdmin && (now - lastGenerated < twelveHours)) {
+  if (canvasEl) canvasEl.style.display = "none";
 
-    if (healingMessageEl) {
-      healingMessageEl.innerHTML = `
+  if (healingMessageEl) {
+    healingMessageEl.innerHTML = `
+      <div style="
+        background: linear-gradient(135deg, #fff8e7, #fdf6ec);
+        border-radius: 12px;
+        padding: 24px;
+        margin: 20px auto;
+        max-width: 520px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        text-align: center;
+        color: #444;
+      ">
+        <h2 style="margin-top: 0;">🌿 また明日お越しください</h2>
+        <p style="font-size: 16px; line-height: 1.7;">
+          エネルギーを大切にお届けするため、御守りの生成は<br>
+          <strong>12時間に1回</strong>までとなっています。<br><br>
+          よければヒーリング動画をご覧になってリラックスしてください。
+        </p>
+
         <div style="
-          background: linear-gradient(135deg, #fff8e7, #fdf6ec);
-          border-radius: 12px;
-          padding: 24px;
-          margin: 20px auto;
-          max-width: 520px;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-          text-align: center;
-          color: #444;
+          margin-top: 24px;
+          padding: 16px;
+          background: #fff6dc;
+          border: 1px solid #e0cfaa;
+          border-radius: 8px;
+          font-size: 14px;
+          line-height: 1.6;
+          text-align: left;
         ">
-          <h2 style="margin-top: 0;">🌿 また明日お越しください</h2>
-          <p style="font-size: 16px; line-height: 1.7;">
-            エネルギーを大切にお届けするため、御守りの生成は<br>
-            <strong>12時間に1回</strong>までとなっています。<br><br>
-            よければヒーリング動画をご覧になってリラックスしてください。
-          </p>
-        </div>
-      `;
-    }
+          <strong>📱 スマホでアプリのように使うには</strong><br><br>
+          <strong>【Android（Chrome）】</strong><br>
+          ・このページをChromeで開く<br>
+          ・「ホーム画面に追加」または「アプリをインストール」<br>
+          ・確認後「追加」→ ホームにKAMUNAアイコンが表示されます<br><br>
 
-    return; // 護符生成は中断
+          <strong>【iOS（Safari）】</strong><br>
+          ・このページをSafariで開く<br>
+          ・下の共有アイコン（⬆）→「ホーム画面に追加」<br>
+          ・アイコン名を確認し「追加」
+        </div>
+      </div>
+    `;
   }
+
+  return; // 護符生成は中断
+}
 
   // 通常ユーザーなら記録更新
   if (!isAdmin) {
