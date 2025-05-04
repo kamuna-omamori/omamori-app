@@ -46,3 +46,12 @@ button:hover {
   background-color: #aa0000;
 }
 
+.sns-links ul {
+  list-style: none;     /* ← これで「•」を消します */
+  padding: 0;
+  margin: 0;            /* ← お好みで余白調整も可能 */
+}
+.sns-links li {
+  margin: 6px 0;
+  text-align: center;
+}
