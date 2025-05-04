@@ -35,6 +35,14 @@ window.addEventListener("DOMContentLoaded", function () {
   for (let j = 0; j < wish.length; j++) {
     ctx.fillText(wish[j], centerX + 30, startY + j * lineHeight);
   }
+     // 「おまもり屋 KAMUNA」の縦書き（左端に）
+  const brandText = "おまもり屋 KAMUNA";
+  const brandX = 20;  // 左端に近い位置
+  const brandYStart = 80;
+
+  for (let k = 0; k < brandText.length; k++) {
+    ctx.fillText(brandText[k], brandX, brandYStart + k * lineHeight);
+  }
 };
   
   // ランダムにヒーリング動画を選択
