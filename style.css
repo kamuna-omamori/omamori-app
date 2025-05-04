@@ -45,21 +45,7 @@ button {
 button:hover {
   background-color: #aa0000;
 }
-.share-box {
-  margin-top: 30px;
-  text-align: center;
-}
 
-.share-box a {
-  display: inline-block;
-  margin: 5px;
-  padding: 10px 15px;
-  background-color: #cc0000;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  font-size: 14px;
-}
 
 
 .sns-links ul {
