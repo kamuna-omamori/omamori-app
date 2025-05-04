@@ -5,7 +5,6 @@ document.getElementById("omamoriForm").addEventListener("submit", function (even
   const now = Date.now();
   const twelveHours = 12 * 60 * 60 * 1000;
 
-  // ランダム動画リスト
   const videoUrls = [
     "https://www.youtube.com/embed/Jtgcss9Fygo?autoplay=1",
     "https://www.youtube.com/embed/P1fGiun03Sk?autoplay=1",
@@ -15,7 +14,6 @@ document.getElementById("omamoriForm").addEventListener("submit", function (even
   ];
   const randomVideo = videoUrls[Math.floor(Math.random() * videoUrls.length)];
 
-  // 制限時間内（12時間未満）の場合は代替表示
   if (lastGenerated && now - parseInt(lastGenerated) < twelveHours) {
     document.getElementById("omamoriResult").innerHTML = `
       <div class="tsukimi-box">
@@ -54,21 +52,18 @@ document.getElementById("omamoriForm").addEventListener("submit", function (even
     return;
   }
 
-  // 初回または12時間以上経過 → 通常処理を実行
+  // 制限されていなければ、ここで記録し、御守り生成を開始
   localStorage.setItem("lastGenerated", now);
 
-  // 入力値の取得
   const name = document.getElementById("nameInput").value;
   const wishSelect = document.getElementById("wishSelect").value;
   const customWish = document.getElementById("customWish").value;
   const wish = customWish ? customWish : wishSelect;
 
-  // 護符画像の描画
   const canvas = document.getElementById("omamoriCanvas");
   const ctx = canvas.getContext("2d");
-
   const backgroundImage = new Image();
-  backgroundImage.src = "assets/omamori_background.jpg"; // 背景画像パスに合わせて調整
+  backgroundImage.src = "assets/omamori_background.jpg";
 
   backgroundImage.onload = function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -78,7 +73,6 @@ document.getElementById("omamoriForm").addEventListener("submit", function (even
     ctx.font = "20px serif";
     ctx.textAlign = "center";
 
-    // 縦書き処理（1文字ずつ回転）
     const verticalText = `${name}　${wish}`;
     const x = canvas.width / 2;
     const yStart = 80;
@@ -89,6 +83,5 @@ document.getElementById("omamoriForm").addEventListener("submit", function (even
     }
   };
 
-  // ランダム動画再生
   document.getElementById("healingVideo").src = randomVideo;
 });
