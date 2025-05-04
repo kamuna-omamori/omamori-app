@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>御守り生成結果</title>
+  <title>御守り生成結果 - KAMUNA</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     .spacer { margin: 24px 0; }
@@ -24,96 +24,36 @@
       margin-bottom: 8px;
       display: inline-block;
     }
+    canvas#omamoriCanvas {
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
   </style>
 </head>
-
-
- <!-- 光の粒子が向かってくるエフェクト -->
-<div style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;">
-  <canvas id="particleCanvas" style="width:100%; height:100%; display:block;"></canvas>
-</div>
-
-<script>
-(function () {
-  const canvas = document.getElementById("particleCanvas");
-  const ctx = canvas.getContext("2d");
-  let width, height;
-  let particles = [];
-
-  function resize() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  }
-  window.addEventListener("resize", resize);
-  resize();
-
-  function createParticle() {
-    const angle = Math.random() * 2 * Math.PI;
-    const speed = Math.random() * 1 + 0.5;
-    return {
-      x: width / 2,
-      y: height / 2,
-      vx: Math.cos(angle) * speed,
-      vy: Math.sin(angle) * speed,
-      size: 1,
-      maxSize: Math.random() * 3 + 2,
-      alpha: 1
-    };
-  }
-
-  function updateParticles() {
-    if (particles.length < 100) {
-      particles.push(createParticle());
-    }
-
-    particles.forEach((p, i) => {
-      p.x += p.vx;
-      p.y += p.vy;
-      p.size += 0.05;
-      p.alpha -= 0.01;
-
-      if (p.alpha <= 0) {
-        particles[i] = createParticle();
-      }
-    });
-  }
-
-  function drawParticles() {
-    ctx.clearRect(0, 0, width, height);
-    particles.forEach(p => {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 223, 128, ${p.alpha})`; // 淡い金色
-      ctx.fill();
-    });
-  }
-
-  function loop() {
-    updateParticles();
-    drawParticles();
-    requestAnimationFrame(loop);
-  }
-
-  loop();
-})();
-</script>
-
-
 <body oncontextmenu="return false;">
+  <!-- 粒子エフェクト -->
+  <div style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;">
+    <canvas id="particleCanvas" style="width:100%; height:100%; display:block;"></canvas>
+  </div>
+
   <div class="container" style="text-align:center">
     <h2 style="font-weight: bold;">あなたの御守り</h2>
 
     <p style="font-size: 16px; line-height: 1.6;">
-      生成された御守りを見ながら深呼吸<br>
-      呼吸のしやすさや、身体の動きも確認してみましょう。<br><br>
-      今、何秒くらい深く息を吐けますか？
+      生成された御守りを見ながら深呼吸。<br>
+      身体の変化や空気の流れをやさしく感じてみましょう。
     </p>
-    <br/>
 
     <canvas id="omamoriCanvas" width="270" height="380"></canvas>
 
-     <br/>
-     <br/>
+    <div class="spacer"></div>
+
+    <p style="font-size: 16px; font-weight: bold;">ヒーリング動画でさらに深いリラックス</p>
+    <p style="font-size: 14px;">御守りと一緒に、KAMUNAの癒しの波動を受け取ってください</p>
+
+    <div class="video-wrapper">
+      <iframe id="healingVideo" src="" allowfullscreen></iframe>
+    </div>
 
     <div class="spacer"></div>
 
@@ -123,50 +63,31 @@
         ▶ ご参加はこちら
       </a>
       <p class="tsukimi-text">
-        KAMUNAの祈りと祓いの会を新月の日に行っています。<br><br>
-        このアプリで神秘的なエネルギーを感じた方は、ぜひご参加ください。
+        KAMUNAの祈りと祓いの会を新月の日に開催しています。<br>
+        このアプリで感じたエネルギーをもっと深く体験したい方へ。
       </p>
     </div>
-    <br/>
-    <br/>
-
-    <div class="spacer"></div>
-
-    <p style="font-size: 16px; line-height: 1.6; font-weight: bold;">
-      KAMUNAのヒーリング動画で更にリラックス<br><br>
-      呼吸や身体の変化を視聴する前後で感じてみてくださいね
-    </p>
-
-    <div class="video-wrapper">
-      <iframe id="healingVideo" src="" allowfullscreen></iframe>
-    </div>
-    <br/>
-    <br/>
 
     <div class="spacer"></div>
 
     <div class="share-box">
-      <p style="font-weight: bold;">この御守り、気に入ったら友達にもぜひ教えてあげてくださいね</p>
+      <p style="font-weight: bold;">御守りが心に響いたら、シェアして広げてください</p>
       <a href="https://twitter.com/intent/tweet?text=KAMUNAのおまもりで癒されました✨&url=https://kamuna-omamori.github.io/omamori-app/" target="_blank">X（旧Twitter）でシェア</a><br>
       <a href="https://www.facebook.com/sharer/sharer.php?u=https://kamuna-omamori.github.io/omamori-app/" target="_blank">Facebookでシェア</a><br>
       <a href="https://line.me/R/msg/text/?KAMUNAのおまもりを試してみて✨%0Ahttps://kamuna-omamori.github.io/omamori-app/" target="_blank">LINEで送る</a>
     </div>
-    <br/>
-    <br/>
 
     <div class="spacer"></div>
 
     <div class="offering-box">
       <p style="font-weight: bold;">
-        この御守りに感謝の気持ちを感じた方は、<br>
-        よろしければお賽銭をお供えください🙏
+        御守りに感謝の気持ちを感じた方は、<br>
+        お賽銭のお気持ちをお届けください🙏
       </p>
       <a href="https://qr.paypay.ne.jp/p2p01_zQp8ZmeOGdLOKbBG" target="_blank" class="offering-button">
         PayPayでお賽銭をする
       </a>
     </div>
-    <br/>
-    <br/>
 
     <div class="spacer"></div>
 
