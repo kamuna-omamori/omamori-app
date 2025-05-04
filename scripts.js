@@ -1,44 +1,9 @@
+
 window.addEventListener("DOMContentLoaded", function () {
+  // URLパラメータからデータ取得
   const params = new URLSearchParams(window.location.search);
-  const isAdmin = params.get("admin") === "1";
-  const now = Date.now();
-  const lastGenerated = parseInt(localStorage.getItem("lastGenerated") || "0", 10);
-  const twelveHours = 12 * 60 * 60 * 1000;
-
-  if (!isAdmin && (now - lastGenerated < twelveHours)) {
-    // 制限中のメッセージ表示（御守りは出さず、動画などは可）
-    document.querySelector(".container").innerHTML = `
-      <h2 style="font-weight:bold;">🌿 また明日お越しください</h2>
-      <p style="font-size:16px;">御守りのエネルギーを大切にお届けするため、<br>1日1回の生成に制限しています。</p>
-      <div class="video-wrapper" style="margin-top: 24px;">
-        <iframe id="healingVideo" src="" allowfullscreen></iframe>
-      </div>
-    `;
-
-    // 動画だけは表示（同じランダム処理）
-    const videoUrls = [
-      "https://www.youtube.com/embed/Jtgcss9Fygo?autoplay=1",
-      "https://www.youtube.com/embed/P1fGiun03Sk?autoplay=1",
-      "https://www.youtube.com/embed/2DxSSjdH63c?autoplay=1",
-      "https://www.youtube.com/embed/cHcDAJ9Au0E?autoplay=1",
-      "https://www.youtube.com/embed/7sIHFbId6SE?autoplay=1"
-    ];
-    const selected = videoUrls[Math.floor(Math.random() * videoUrls.length)];
-    setTimeout(() => {
-      const iframe = document.getElementById("healingVideo");
-      if (iframe) iframe.src = selected;
-    }, 100);
-    
-    return; // ここで他の処理を止める
-  }
-
-  // 制限解除 or 管理者なら記録して処理続行
-  if (!isAdmin) {
-    localStorage.setItem("lastGenerated", now);
-  }
-
-  // この下に既存の護符生成処理などを続けて記述
-});
+  const name = decodeURIComponent(params.get("name") || "");
+  const wish = decodeURIComponent(params.get("wish") || "");
 
 
   // 護符 Canvas 描画
