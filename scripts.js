@@ -28,9 +28,13 @@ form.addEventListener('submit', async function(e) {
     }
   };
 
-  const playlist = [
-    "https://www.youtube.com/embed/videoseries?list=PLfsSnb5JQ6XEmAOiYGBZ8YOPK-Eu1B1mE"
+   const videoUrls = [
+    "https://www.youtube.com/embed/Jtgcss9Fygo?autoplay=1",
+    "https://www.youtube.com/embed/P1fGiun03Sk?autoplay=1",
+    "https://www.youtube.com/embed/2DxSSjdH63c?autoplay=1",
+    "https://www.youtube.com/embed/cHcDAJ9Au0E?autoplay=1",
+    "https://www.youtube.com/embed/7sIHFbId6SE?autoplay=1"
   ];
-  const randomUrl = playlist[Math.floor(Math.random() * playlist.length)];
-  video.src = randomUrl;
+  const selectedUrl = videoUrls[Math.floor(Math.random() * videoUrls.length)];
+  document.getElementById("healingVideo").src = selectedUrl;
 });
