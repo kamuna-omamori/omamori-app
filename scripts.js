@@ -25,17 +25,24 @@ window.addEventListener("DOMContentLoaded", function () {
   backgroundImage.src = "assets/omamori_background.jpg";
 
   backgroundImage.onload = function () {
-    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-    ctx.font = "20px serif";
-    ctx.fillStyle = "#000";
-    ctx.textAlign = "center";
-    ctx.fillText(name + " 様", canvas.width / 2, canvas.height / 2);
-    ctx.fillText(wish, canvas.width / 2, canvas.height / 2 + 40);
-  };
+  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+  ctx.font = "20px serif";
+  ctx.fillStyle = "#000";
+  ctx.textAlign = "center";
 
-  backgroundImage.onerror = function () {
-    console.error("画像の読み込みに失敗しました。ファイルパスを確認してください。");
-  };
+  // 縦書き：一文字ずつ描画
+  const centerX = canvas.width / 2;
+  let startY = 120;
+
+  for (let i = 0; i < name.length; i++) {
+    ctx.fillText(name[i], centerX - 20, startY + i * 24);
+  }
+
+  for (let j = 0; j < wish.length; j++) {
+    ctx.fillText(wish[j], centerX + 20, startY + j * 24);
+  }
+};
+
 
   const videoUrls = [
     "https://www.youtube.com/embed/Jtgcss9Fygo?autoplay=1",
