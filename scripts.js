@@ -36,15 +36,15 @@ window.addEventListener("DOMContentLoaded", function () {
       ctx.fillText(wish[j], centerX + 30, startY + j * lineHeight);
     }
 
-    // ブランド名（縦書き 左端に）
-    const brandText = "おまもり屋 KAMUNA";
-    const brandX = 20;
-    const brandYStart = 80;
+   // ブランド名（縦書き 左端に）
+ctx.font = "14px serif";  // 👈 ブランド名用の小さめフォント
+const brandText = "おまもり屋 KAMUNA";
+const brandX = 20;
+const brandYStart = 80;
 
-    for (let k = 0; k < brandText.length; k++) {
-      ctx.fillText(brandText[k], brandX, brandYStart + k * lineHeight);
-    }
-  };
+for (let k = 0; k < brandText.length; k++) {
+  ctx.fillText(brandText[k], brandX, brandYStart + k * lineHeight);
+}
 
   // ランダムなヒーリング動画を選択して埋め込み
   const videoUrls = [
