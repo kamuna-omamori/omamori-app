@@ -13,7 +13,12 @@ document.getElementById("omamoriForm").addEventListener("submit", function (even
   const lastGenerated = localStorage.getItem("lastGenerated");
   const twelveHours = 12 * 60 * 60 * 1000;
 
-  if (!isAdmin && lastGenerated && now - parseInt(lastGenerated) < twelveHours) {
+  if (!name && !isAdmin) {
+    alert("お名前を入力してください。");
+    return;
+  }
+
+  if (!isAdmin && lastGenerated && now - parseInt(lastGenerated, 10) < twelveHours) {
     document.querySelector(".container").innerHTML = `
       <h2 style="font-weight: bold;">⚠ 御守りは1日1回まで</h2>
       <p style="font-size: 16px; line-height: 1.6;">
