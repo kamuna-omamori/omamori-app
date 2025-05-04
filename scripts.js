@@ -14,7 +14,7 @@ window.addEventListener("DOMContentLoaded", function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
 
-    ctx.font = "20px serif";
+    ctx.font = "25px serif";
     ctx.fillStyle = "#000";
     ctx.textAlign = "center";
 
@@ -37,7 +37,7 @@ window.addEventListener("DOMContentLoaded", function () {
     }
 
    // ブランド名（縦書き 左端に）
-ctx.font = "14px serif";  // 👈 ブランド名用の小さめフォント
+ctx.font = "10px serif";  // 👈 ブランド名用の小さめフォント
 const brandText = "おまもり屋 KAMUNA";
 const brandX = 20;
 const brandYStart = 80;
