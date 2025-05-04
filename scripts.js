@@ -21,20 +21,34 @@ window.addEventListener("DOMContentLoaded", function () {
   const selected = videoUrls[Math.floor(Math.random() * videoUrls.length)];
   document.getElementById("healingVideo").src = selected;
 
-  // 通常ユーザーで制限中なら護符非表示＆メッセージ表示
-  if (!isAdmin && (now - lastGenerated < twelveHours)) {
-    if (canvasEl) canvasEl.style.display = "none";
-    if (healingMessageEl) {
-      healingMessageEl.innerHTML = `
-        <h2>🌿 また明日お越しください</h2>
-        <p style="font-size: 16px; line-height: 1.6;">
-          エネルギーを大切にお届けするため、御守りの生成は12時間に1回までとなっています。<br>
+ // 通常ユーザーで制限中なら護符非表示＆メッセージ表示
+if (!isAdmin && (now - lastGenerated < twelveHours)) {
+  if (canvasEl) canvasEl.style.display = "none";
+
+  if (healingMessageEl) {
+    healingMessageEl.innerHTML = `
+      <div style="
+        background: linear-gradient(135deg, #fff8e7, #fdf6ec);
+        border-radius: 12px;
+        padding: 24px;
+        margin: 20px auto;
+        max-width: 520px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        text-align: center;
+        color: #444;
+      ">
+        <h2 style="margin-top: 0;">🌿 また明日お越しください</h2>
+        <p style="font-size: 16px; line-height: 1.7;">
+          エネルギーを大切にお届けするため、御守りの生成は<br>
+          <strong>12時間に1回</strong>までとなっています。<br><br>
           よければヒーリング動画をご覧になってリラックスしてください。
         </p>
-      `;
-    }
-    return; // 護符生成は中断
+      </div>
+    `;
   }
+
+  return; // 護符生成は中断
+}
 
   // 通常ユーザーなら記録更新（管理者は更新しない）
   if (!isAdmin) {
