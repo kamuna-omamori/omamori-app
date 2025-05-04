@@ -5,20 +5,109 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>おまもり屋 KAMUNA</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: "Hiragino Mincho Pro", "Yu Mincho", serif;
+      background-color: #fdfaf5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.96);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 26px;
+      color: #7a4b00;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: #444;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    .section-box {
+      background: #f5f5f0;
+      border: 2px solid #d9cba5;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #7a4b00;
+      margin-bottom: 10px;
+    }
+
+    .section-note {
+      font-size: 14px;
+      color: #666;
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    button {
+      margin-top: 12px;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      background-color: #cc0000;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #990000;
+    }
+  </style>
 </head>
 <body>
-  <div class="container" style="text-align:center">
-    <h1>おまもり屋 KAMUNA の　<br>　癒しと願いのアプリ</h1>
-     <br>
-      <p style="font-size: 16px; line-height: 1.6;">
-    1日1回 名前と願いを入力してKAMUNAセラピー。<br>
-  </p>
-    <br>
+  <div class="container">
+    <h1>おまもり屋 KAMUNA</h1>
+    <p class="subtitle">癒しと願いの御守りアプリ</p>
+
     <form id="omamoriForm">
-      <label>1名前を記入してください: <input type="text" id="nameInput" required /></label><br />
-      <br>
-      <label>2願いを教えてください（選択または記載）:
-       <select id="wishSelect">
+      <div class="form-group">
+        <label for="nameInput">1. お名前を記入してください：</label>
+        <input type="text" id="nameInput" required />
+      </div>
+
+      <div class="form-group">
+        <label for="wishSelect">2. 願いを教えてください（選択または自由記入）：</label>
+        <select id="wishSelect">
           <option value="健康">健康</option>
           <option value="家内安全">家内安全</option>
           <option value="恋愛成就">恋愛成就</option>
@@ -26,30 +115,37 @@
           <option value="良縁祈願">良縁祈願</option>
         </select>
         <input type="text" id="customWish" placeholder="自由記入欄（10文字まで）" maxlength="10" />
-      </label><br /><br><br>
+      </div>
+
       <div class="section-box">
         <p class="section-title">🌿 御守りを生成する前に</p>
-        <p class="section-text" style="font-size: 18px;">
+        <p style="font-size: 16px;">
           深呼吸、前屈、首などの動かしやすさを確認し、<br>
           生成ボタンをクリックしてください。<br><br>
           今、何秒くらい深く息を吐けますか？
         </p>
         <button type="submit">御守りを生成</button>
-        <p class="section-note">
-          ※名前と願いの情報は保存されません。
-        </p>
+        <p class="section-note">※名前と願いの情報は保存されません。</p>
       </div>
     </form>
   </div>
+
   <script>
     document.getElementById("omamoriForm").addEventListener("submit", function (event) {
       event.preventDefault();
-      const name = encodeURIComponent(document.getElementById("nameInput").value);
+      const name = encodeURIComponent(document.getElementById("nameInput").value.trim());
       const wishSelect = document.getElementById("wishSelect").value;
-      const customWish = document.getElementById("customWish").value;
+      const customWish = document.getElementById("customWish").value.trim();
       const wish = encodeURIComponent(customWish ? customWish : wishSelect);
+
+      if (!name) {
+        alert("お名前を入力してください。");
+        return;
+      }
+
       window.location.href = `result.html?name=${name}&wish=${wish}`;
     });
   </script>
 </body>
 </html>
+
