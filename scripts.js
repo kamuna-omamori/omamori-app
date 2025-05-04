@@ -1,54 +1,48 @@
-
-document.getElementById("omamoriForm")?.addEventListener("submit", function (event) {
+document.getElementById("omamoriForm").addEventListener("submit", function (event) {
   event.preventDefault();
+
+  // 入力値の取得
   const name = document.getElementById("nameInput").value;
-  const selectedWish = document.getElementById("wishSelect").value;
+  const wishSelect = document.getElementById("wishSelect").value;
   const customWish = document.getElementById("customWish").value;
-  const finalWish = customWish.trim() !== "" ? customWish : selectedWish;
+  const wish = customWish ? customWish : wishSelect;
 
-  localStorage.setItem("omamoriName", name);
-  localStorage.setItem("omamoriWish", finalWish);
-  window.location.href = "result.html";
-});
-
-window.addEventListener("DOMContentLoaded", function () {
+  // 護符画像の描画
   const canvas = document.getElementById("omamoriCanvas");
-  if (!canvas) return;
   const ctx = canvas.getContext("2d");
 
-  const image = new Image();
-  image.src = "omamori.jpg";
-  image.onload = function () {
-    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-    const name = localStorage.getItem("omamoriName") || "";
-    const wish = localStorage.getItem("omamoriWish") || "";
+  // 正しいファイルパスに修正（assetsフォルダ内）
+  const backgroundImage = new Image();
+  backgroundImage.src = "assets/omamori_background.jpg"; // ← ここを修正しました！
 
-    ctx.font = "20px 'serif'";
+  backgroundImage.onload = function () {
+    // 背景を描画
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+
+    // 名前の描画
+    ctx.font = "20px serif";
     ctx.fillStyle = "#000";
     ctx.textAlign = "center";
-    ctx.save();
-    ctx.translate(150, 100);
-    ctx.rotate(Math.PI / 2);
-    ctx.fillText(name, 0, 0);
-    ctx.fillText(wish, 40, 0);
-    ctx.restore();
+    ctx.fillText(name + " 様", canvas.width / 2, canvas.height / 2 + 10);
+
+    // 願いの描画（必要であれば）
+    // ctx.fillText("願意: " + wish, canvas.width / 2, canvas.height / 2 + 40);
   };
 
-  const videos = [
-    "https://www.youtube.com/embed/Y5OBGcH-fSM?autoplay=1",
-    "https://www.youtube.com/embed/BT4fKJz1ebc?autoplay=1",
-    "https://www.youtube.com/embed/xadgNW7xEes?autoplay=1"
+  backgroundImage.onerror = function () {
+    console.error("画像が読み込めませんでした。パスを確認してください。");
+  };
+
+  // ランダムなヒーリング動画の再生
+  const videoUrls = [
+    "https://www.youtube.com/embed/Jtgcss9Fygo?autoplay=1",
+    "https://www.youtube.com/embed/P1fGiun03Sk?autoplay=1",
+    "https://www.youtube.com/embed/2DxSSjdH63c?autoplay=1",
+    "https://www.youtube.com/embed/cHcDAJ9Au0E?autoplay=1",
+    "https://www.youtube.com/embed/7sIHFbId6SE?autoplay=1"
   ];
-  const randomVideo = videos[Math.floor(Math.random() * videos.length)];
-  const iframe = document.getElementById("healingVideo");
-  if (iframe) iframe.src = randomVideo;
-
-  const adviceList = {
-    "健康": "日々の小さな疲れに気づいて休むことが健康への第一歩です。",
-    "家内安全": "家庭の空気はあなたの心を映します。笑顔のあいさつを忘れずに。",
-    "恋愛成就": "まず自分自身を大切にすることが、良縁を引き寄せます。"
-  };
-  const adviceContainer = document.getElementById("adviceContainer");
-  const advice = adviceList[wish] || "あなたの願いが叶いますように。";
-  if (adviceContainer) adviceContainer.textContent = advice;
+  const selectedUrl = videoUrls[Math.floor(Math.random() * videoUrls.length)];
+  document.getElementById("healingVideo").src = selectedUrl;
 });
+
