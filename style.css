@@ -1,3 +1,4 @@
+/* ページ全体の背景に神社画像を設定 */
 body {
   background: url("assets/shrine_background.jpg") no-repeat center center fixed;
   background-size: cover;
@@ -6,15 +7,42 @@ body {
   padding: 20px;
 }
 
+/* 中央の白いボックス（フォームや結果表示部分） */
 .container {
-  background: rgba(255, 255, 255, 0.9); /* 半透明にして背景が少し透ける */
+  background: rgba(255, 255, 255, 0.92);  /* 半透明白 */
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 12px;
   max-width: 600px;
-  margin: auto;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin: 40px auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
+
+/* キャンバスの余白と枠線 */
 canvas {
   border: 1px solid #ccc;
   margin: 20px 0;
 }
+
+/* 入力フィールドの余白調整 */
+input, select {
+  margin: 8px 0;
+  padding: 6px;
+  font-size: 16px;
+}
+
+/* ボタンのデザイン */
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  background-color: #cc0000;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #aa0000;
+}
+
