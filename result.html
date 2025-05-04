@@ -5,6 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>御守り生成結果</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .spacer { margin: 24px 0; }
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .sns-links ul, .share-box a {
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+  </style>
 </head>
 <body>
   <div class="container" style="text-align:center">
@@ -12,49 +32,37 @@
 
     <p style="font-size: 16px; line-height: 1.6;">
       生成された御守りを見ながら深呼吸<br>
-      そして呼吸のしやすさや、身体の動きも確認してみましょう。
-       <br>
-             <br>
+      呼吸のしやすさや、身体の動きも確認してみましょう。<br><br>
       今、何秒くらい深く息を吐けますか？
     </p>
-    
 
     <canvas id="omamoriCanvas" width="250" height="400"></canvas>
 
-    <br><br>
-         <br>
-     <br>
-     <br>
+    <div class="spacer"></div>
 
     <div class="tsukimi-box">
-  <p class="tsukimi-title">🌑 新月の大祓会（Zoom）ご案内 🌑</p>
-  <a class="tsukimi-button" href="https://docs.google.com/forms/d/e/1FAIpQLSfpOiJ8jg00s8nSXmiD6kzCUOJP19XhNR0mb9WFrAjxTfbEFw/viewform?usp=dialog" target="_blank">
-    ▶ ご参加はこちら
-  </a>
-  <p class="tsukimi-text">
-    KAMUNAの祈りと祓いの会を新月の日に行っています。<br><br>
-    このアプリで神秘的なエネルギーを感じた方は、ぜひご参加ください。
-  </p>
-</div>
-    <br>
-      <br>
-         <br>
-     <br>
+      <p class="tsukimi-title">🌑 新月の大祓会（Zoom）ご案内 🌑</p>
+      <a class="tsukimi-button" href="https://docs.google.com/forms/d/e/1FAIpQLSfpOiJ8jg00s8nSXmiD6kzCUOJP19XhNR0mb9WFrAjxTfbEFw/viewform?usp=dialog" target="_blank">
+        ▶ ご参加はこちら
+      </a>
+      <p class="tsukimi-text">
+        KAMUNAの祈りと祓いの会を新月の日に行っています。<br><br>
+        このアプリで神秘的なエネルギーを感じた方は、ぜひご参加ください。
+      </p>
+    </div>
+
+    <div class="spacer"></div>
 
     <p style="font-size: 16px; line-height: 1.6; font-weight: bold;">
-      KAMUNAのヒーリング動画で更にリラックス    <br>
-          <br>
+      KAMUNAのヒーリング動画で更にリラックス<br><br>
       呼吸や身体の変化を視聴する前後で感じてみてくださいね
     </p>
 
-    <div id="videoContainer">
-      <iframe id="healingVideo" width="560" height="315" src="" allowfullscreen></iframe>
+    <div class="video-wrapper">
+      <iframe id="healingVideo" src="" allowfullscreen></iframe>
     </div>
 
-    <br><br>
-      <br>
-         <br>
-      <br>
+    <div class="spacer"></div>
 
     <div class="share-box">
       <p style="font-weight: bold;">この御守り、気に入ったら友達にもぜひ教えてあげてくださいね</p>
@@ -63,22 +71,20 @@
       <a href="https://line.me/R/msg/text/?KAMUNAのおまもりを試してみて✨%0Ahttps://kamuna-omamori.github.io/omamori-app/" target="_blank">LINEで送る</a>
     </div>
 
-    <br>
-      <br>
-      <br>
+    <div class="spacer"></div>
 
+    <div class="offering-box">
+      <p style="font-weight: bold;">
+        この御守りに感謝の気持ちを感じた方は、<br>
+        よろしければお賽銭をお供えください🙏
+      </p>
+      <a href="https://qr.paypay.ne.jp/p2p01_zQp8ZmeOGdLOKbBG" target="_blank" class="offering-button">
+        PayPayでお賽銭をする
+      </a>
+    </div>
 
-<div class="offering-box">
-  <p style="font-weight: bold;">
-    この御守りに感謝の気持ちを感じた方は、<br>
-    よろしければお賽銭をお供えください🙏
-  </p>
-  <a href="https://qr.paypay.ne.jp/p2p01_zQp8ZmeOGdLOKbBG" target="_blank" class="offering-button">
-    PayPayでお賽銭をする
-  </a>
-</div>
-     <br>
-     <br>
+    <div class="spacer"></div>
+
     <div class="sns-links">
       <p style="font-weight: bold;">KAMUNAのSNS</p>
       <ul style="list-style: none; padding: 0;">
@@ -92,4 +98,3 @@
   <script src="scripts.js"></script>
 </body>
 </html>
-
