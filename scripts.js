@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
   backgroundImage.onload = function () {
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-  ctx.font = "20px serif";
+  ctx.font = "30px serif";
   ctx.fillStyle = "#000";
   ctx.textAlign = "center";
 
