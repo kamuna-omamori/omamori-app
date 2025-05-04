@@ -1,93 +1,76 @@
-window.addEventListener("DOMContentLoaded", function () {
-  const params = new URLSearchParams(window.location.search);
-  const name = decodeURIComponent(params.get("name") || "");
-  const wish = decodeURIComponent(params.get("wish") || "");
-  const isAdmin = params.get("admin") === "1";
+document.getElementById("omamoriForm").addEventListener("submit", function (event) {
+  event.preventDefault();
 
-  // ヒーリング動画は常に再生（制限なし）
-  const videoUrls = [
-    "https://www.youtube.com/embed/Jtgcss9Fygo?autoplay=1",
-    "https://www.youtube.com/embed/P1fGiun03Sk?autoplay=1",
-    "https://www.youtube.com/embed/2DxSSjdH63c?autoplay=1",
-    "https://www.youtube.com/embed/cHcDAJ9Au0E?autoplay=1",
-    "https://www.youtube.com/embed/7sIHFbId6SE?autoplay=1"
-  ];
-  const selected = videoUrls[Math.floor(Math.random() * videoUrls.length)];
-  document.getElementById("healingVideo").src = selected;
+  const name = document.getElementById("nameInput").value.trim();
+  const wishSelect = document.getElementById("wishSelect").value;
+  const customWish = document.getElementById("customWish").value.trim();
+  const wish = customWish || wishSelect;
 
-  // 制限チェック（管理者はスキップ）
-  const lastGenerated = localStorage.getItem("lastGenerated");
+  // 管理者パスワード（仮設定：変更OK）
+  const adminPassword = "kamunaadmin999";
+  const isAdmin = customWish === adminPassword;
+
   const now = Date.now();
+  const lastGenerated = localStorage.getItem("lastGenerated");
   const twelveHours = 12 * 60 * 60 * 1000;
 
+  // 管理者以外は時間制限をチェック
   if (!isAdmin && lastGenerated && now - parseInt(lastGenerated) < twelveHours) {
-  document.querySelector(".container").innerHTML = `
-    <h2 style="font-weight: bold;">⚠ 御守りは1日1回まで</h2>
-    <p style="font-size: 16px; line-height: 1.6;">
-      しっかりエネルギーを届けるために、御守りの生成は1日1回までに設定しています。<br><br>
-      また明日、お越しくださいね🌿
-    </p>
+    const videoUrls = [
+      "https://www.youtube.com/embed/Jtgcss9Fygo?autoplay=1",
+      "https://www.youtube.com/embed/P1fGiun03Sk?autoplay=1",
+      "https://www.youtube.com/embed/2DxSSjdH63c?autoplay=1",
+      "https://www.youtube.com/embed/cHcDAJ9Au0E?autoplay=1",
+      "https://www.youtube.com/embed/7sIHFbId6SE?autoplay=1"
+    ];
+    const randomVideo = videoUrls[Math.floor(Math.random() * videoUrls.length)];
 
-    <br><br>
-
-    <div class="tsukimi-box">
-      <p class="tsukimi-title">🌑 新月の大祓会（Zoom）ご案内 🌑</p>
-      <a class="tsukimi-button" href="https://docs.google.com/forms/d/e/1FAIpQLSfpOiJ8jg00s8nSXmiD6kzCUOJP19XhNR0mb9WFrAjxTfbEFw/viewform?usp=dialog" target="_blank">
-        ▶ ご参加はこちら
-      </a>
-      <p class="tsukimi-text">
-        KAMUNAの祈りと祓いの会を新月の日に行っています。<br><br>
-        このアプリで神秘的なエネルギーを感じた方は、ぜひご参加ください。
+    document.querySelector(".container").innerHTML = `
+      <h2 style="font-weight: bold;">⚠ 御守りは1日1回まで</h2>
+      <p style="font-size: 16px; line-height: 1.6;">
+        エネルギーを丁寧に届けるために、御守りの生成は1日1回までです。<br>
+        また明日、お越しくださいね🌿
       </p>
-    </div>
-  `;
-  return;
-}
 
+      <br><br>
 
-  // 制限を記録（管理者以外）
+      <div class="video-wrapper">
+        <iframe id="healingVideo" src="${randomVideo}" allowfullscreen></iframe>
+      </div>
+
+      <br><br>
+
+      <div class="tsukimi-box">
+        <p class="tsukimi-title">🌑 新月の大祓会（Zoom）ご案内 🌑</p>
+        <a class="tsukimi-button" href="https://docs.google.com/forms/d/e/1FAIpQLSfpOiJ8jg00s8nSXmiD6kzCUOJP19XhNR0mb9WFrAjxTfbEFw/viewform?usp=dialog" target="_blank">
+          ▶ ご参加はこちら
+        </a>
+        <p class="tsukimi-text">
+          KAMUNAの祈りと祓いの会を新月の日に行っています。<br><br>
+          このアプリで神秘的なエネルギーを感じた方は、ぜひご参加ください。
+        </p>
+      </div>
+
+      <br><br>
+
+      <div class="sns-links">
+        <p style="font-weight: bold;">KAMUNAのSNS</p>
+        <ul style="list-style: none; padding: 0;">
+          <li><a href="https://www.facebook.com/profile.php?id=61575515507055" target="_blank">Facebook</a></li>
+          <li><a href="https://www.instagram.com/kamuna_organic" target="_blank">Instagram</a></li>
+          <li><a href="https://note.com/kamuna_9999" target="_blank">note</a></li>
+        </ul>
+      </div>
+    `;
+    return;
+  }
+
+  // 管理者以外ならアクセス時刻を記録
   if (!isAdmin) {
     localStorage.setItem("lastGenerated", now);
   }
 
-  // 護符画像の生成
-  const canvas = document.getElementById("omamoriCanvas");
-  const ctx = canvas.getContext("2d");
-  const bgImage = new Image();
-  bgImage.src = "assets/omamori_background.jpg";
-
-  bgImage.onload = function () {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
-
-    ctx.font = "20px serif";
-    ctx.fillStyle = "#000";
-    ctx.textAlign = "center";
-
-    const centerX = canvas.width / 2;
-    const lineHeight = 24;
-
-    const totalLines = Math.max(name.length, wish.length);
-    const totalHeight = totalLines * lineHeight;
-    const startY = (canvas.height - totalHeight) / 2 + 10;
-
-    // 名前（縦書き・左）
-    for (let i = 0; i < name.length; i++) {
-      ctx.fillText(name[i], centerX - 30, startY + i * lineHeight);
-    }
-
-    // 願い（縦書き・右）
-    for (let j = 0; j < wish.length; j++) {
-      ctx.fillText(wish[j], centerX + 30, startY + j * lineHeight);
-    }
-
-    // 「おまもり屋 KAMUNA」（縦書き・左端、小さめ）
-    ctx.font = "14px serif"; // 小さく設定
-    const brandText = "おまもり屋 KAMUNA";
-    const brandX = 20;
-    const brandYStart = 80;
-    for (let k = 0; k < brandText.length; k++) {
-      ctx.fillText(brandText[k], brandX, brandYStart + k * lineHeight);
-    }
-  };
+  // 次のページへ名前と願いを渡して遷移
+  const query = `name=${encodeURIComponent(name)}&wish=${encodeURIComponent(wish)}`;
+  window.location.href = `result.html?${query}`;
 });
