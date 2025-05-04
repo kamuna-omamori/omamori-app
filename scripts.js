@@ -16,40 +16,28 @@ document.getElementById("omamoriForm").addEventListener("submit", function (even
 
   // 管理者以外は時間制限をチェック
   if (!isAdmin && lastGenerated && now - parseInt(lastGenerated) < twelveHours) {
-    const videoUrls = [
-      "https://www.youtube.com/embed/Jtgcss9Fygo?autoplay=1",
-      "https://www.youtube.com/embed/P1fGiun03Sk?autoplay=1",
-      "https://www.youtube.com/embed/2DxSSjdH63c?autoplay=1",
-      "https://www.youtube.com/embed/cHcDAJ9Au0E?autoplay=1",
-      "https://www.youtube.com/embed/7sIHFbId6SE?autoplay=1"
-    ];
-    const randomVideo = videoUrls[Math.floor(Math.random() * videoUrls.length)];
+  document.querySelector(".container").innerHTML = `
+    <h2 style="font-weight: bold;">⚠ 御守りは1日1回まで</h2>
+    <p style="font-size: 16px; line-height: 1.6;">
+      しっかりエネルギーを届けるために、御守りの生成は1日1回までに設定しています。<br><br>
+      また明日、お越しくださいね🌿
+    </p>
 
-    document.querySelector(".container").innerHTML = `
-      <h2 style="font-weight: bold;">⚠ 御守りは1日1回まで</h2>
-      <p style="font-size: 16px; line-height: 1.6;">
-        エネルギーを丁寧に届けるために、御守りの生成は1日1回までです。<br>
-        また明日、お越しくださいね🌿
+    <br><br>
+
+    <div class="tsukimi-box">
+      <p class="tsukimi-title">🌑 新月の大祓会（Zoom）ご案内 🌑</p>
+      <a class="tsukimi-button" href="https://docs.google.com/forms/d/e/1FAIpQLSfpOiJ8jg00s8nSXmiD6kzCUOJP19XhNR0mb9WFrAjxTfbEFw/viewform?usp=dialog" target="_blank">
+        ▶ ご参加はこちら
+      </a>
+      <p class="tsukimi-text">
+        KAMUNAの祈りと祓いの会を新月の日に行っています。<br><br>
+        このアプリで神秘的なエネルギーを感じた方は、ぜひご参加ください。
       </p>
-
-      <br><br>
-
-      <div class="video-wrapper">
-        <iframe id="healingVideo" src="${randomVideo}" allowfullscreen></iframe>
-      </div>
-
-      <br><br>
-
-      <div class="tsukimi-box">
-        <p class="tsukimi-title">🌑 新月の大祓会（Zoom）ご案内 🌑</p>
-        <a class="tsukimi-button" href="https://docs.google.com/forms/d/e/1FAIpQLSfpOiJ8jg00s8nSXmiD6kzCUOJP19XhNR0mb9WFrAjxTfbEFw/viewform?usp=dialog" target="_blank">
-          ▶ ご参加はこちら
-        </a>
-        <p class="tsukimi-text">
-          KAMUNAの祈りと祓いの会を新月の日に行っています。<br><br>
-          このアプリで神秘的なエネルギーを感じた方は、ぜひご参加ください。
-        </p>
-      </div>
+    </div>
+  `;
+  return;
+}
 
       <br><br>
 
