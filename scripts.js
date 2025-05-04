@@ -8,7 +8,7 @@ window.addEventListener("DOMContentLoaded", function () {
   const canvas = document.getElementById("omamoriCanvas");
   const ctx = canvas.getContext("2d");
   const bgImage = new Image();
-  bgImage.src = "assets/omamori_background.jpg"; // ファイル名とパスは正確に！
+  bgImage.src = "assets/omamori_background.jpg"; // 正しいファイル名・パス
 
   bgImage.onload = function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded", function () {
     const centerX = canvas.width / 2;
     const lineHeight = 24;
 
-    // 長さの長い方に合わせて中央寄せ
+    // 名前と願いの文字数に応じて中央寄せ
     const totalLines = Math.max(name.length, wish.length);
     const totalHeight = totalLines * lineHeight;
     const startY = (canvas.height - totalHeight) / 2 + 10;
@@ -36,7 +36,7 @@ window.addEventListener("DOMContentLoaded", function () {
       ctx.fillText(wish[j], centerX + 30, startY + j * lineHeight);
     }
 
-    // 「おまもり屋 KAMUNA」の縦書き（左端に）
+    // ブランド名（縦書き 左端に）
     const brandText = "おまもり屋 KAMUNA";
     const brandX = 20;
     const brandYStart = 80;
@@ -46,7 +46,7 @@ window.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  // ランダムなヒーリング動画を選択
+  // ランダムなヒーリング動画を選択して埋め込み
   const videoUrls = [
     "https://www.youtube.com/embed/Jtgcss9Fygo?autoplay=1",
     "https://www.youtube.com/embed/P1fGiun03Sk?autoplay=1",
