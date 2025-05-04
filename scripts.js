@@ -10,33 +10,33 @@ window.addEventListener("DOMContentLoaded", function () {
   const bgImage = new Image();
   bgImage.src = "assets/omamori_background.jpg"; // ファイル名とパスは正確に！
 
-  bgImage.onload = function () {
+  backgroundImage.onload = function () {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = "#000";
   ctx.font = "20px serif";
+  ctx.fillStyle = "#000";
   ctx.textAlign = "center";
 
-  const nameText = name + " 様";
-  const wishText = wish;
-
-  const baseX = canvas.width / 2 - 20; // 名前列のx位置
-  const wishX = canvas.width / 2 + 20; // 願い列のx位置
-  const yStart = 80;
+  const centerX = canvas.width / 2;
   const lineHeight = 24;
 
-  // 名前の縦書き
-  for (let i = 0; i < nameText.length; i++) {
-    ctx.fillText(nameText[i], baseX, yStart + i * lineHeight);
+  // 長さの長い方に合わせて中央寄せ
+  const totalLines = Math.max(name.length, wish.length);
+  const totalHeight = totalLines * lineHeight;
+  const startY = (canvas.height - totalHeight) / 2 + 10;
+
+  // 名前（縦書き 左寄り）
+  for (let i = 0; i < name.length; i++) {
+    ctx.fillText(name[i], centerX - 30, startY + i * lineHeight);
   }
 
-  // 願いの縦書き
-  for (let i = 0; i < wishText.length; i++) {
-    ctx.fillText(wishText[i], wishX, yStart + i * lineHeight);
+  // 願い（縦書き 右寄り）
+  for (let j = 0; j < wish.length; j++) {
+    ctx.fillText(wish[j], centerX + 30, startY + j * lineHeight);
   }
 };
-
+  
   // ランダムにヒーリング動画を選択
   const videoUrls = [
     "https://www.youtube.com/embed/Jtgcss9Fygo?autoplay=1",
