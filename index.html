@@ -8,29 +8,25 @@
 </head>
 <body>
   <div class="container" style="text-align:center">
-    <h1>おまもり屋 KAMUNA の<br>癒しと願いのアプリ</h1>
+    <h1>おまもり屋 KAMUNA の　<br>　癒しと願いのアプリ</h1>
+     <br>
+      <p style="font-size: 16px; line-height: 1.6;">
+    1日1回 名前と願いを入力してKAMUNAセラピー。<br>
+  </p>
     <br>
-    <p style="font-size: 16px; line-height: 1.6;">
-      1日1回 名前と願いを入力してKAMUNAセラピー。<br>
-    </p>
-    <br>
-
     <form id="omamoriForm">
-      <label>① 名前を記入してください:<br>
-        <input type="text" id="nameInput" required />
-      </label><br><br>
-
-      <label>② 願いを教えてください（選択または記載）:<br>
-        <select id="wishSelect">
+      <label>1名前を記入してください: <input type="text" id="nameInput" required /></label><br />
+      <br>
+      <label>2願いを教えてください（選択または記載）:
+       <select id="wishSelect">
           <option value="健康">健康</option>
           <option value="家内安全">家内安全</option>
           <option value="恋愛成就">恋愛成就</option>
           <option value="商売繁盛">商売繁盛</option>
           <option value="良縁祈願">良縁祈願</option>
-        </select><br>
+        </select>
         <input type="text" id="customWish" placeholder="自由記入欄（10文字まで）" maxlength="10" />
-      </label><br><br>
-
+      </label><br /><br><br>
       <div class="section-box">
         <p class="section-title">🌿 御守りを生成する前に</p>
         <p class="section-text" style="font-size: 18px;">
@@ -38,18 +34,22 @@
           生成ボタンをクリックしてください。<br><br>
           今、何秒くらい深く息を吐けますか？
         </p>
-
         <button type="submit">御守りを生成</button>
-
         <p class="section-note">
           ※名前と願いの情報は保存されません。
         </p>
       </div>
     </form>
   </div>
-</div>
-  </div>
-
-  <script src="scripts.js"></script>
+  <script>
+    document.getElementById("omamoriForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const name = encodeURIComponent(document.getElementById("nameInput").value);
+      const wishSelect = document.getElementById("wishSelect").value;
+      const customWish = document.getElementById("customWish").value;
+      const wish = encodeURIComponent(customWish ? customWish : wishSelect);
+      window.location.href = `result.html?name=${name}&wish=${wish}`;
+    });
+  </script>
 </body>
 </html>
