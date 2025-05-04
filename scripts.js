@@ -26,6 +26,8 @@ window.addEventListener("DOMContentLoaded", function () {
   // 通常ユーザーで制限中なら護符非表示＆メッセージ表示
 if (!isAdmin && (now - lastGenerated < twelveHours)) {
   if (canvasEl) canvasEl.style.display = "none";
+  const introEl = document.getElementById("omamoriIntro");
+  if (introEl) introEl.style.display = "none"; 
 
   if (healingMessageEl) {
     healingMessageEl.innerHTML = `
