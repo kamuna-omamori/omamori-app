@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>御守り生成結果 - KAMUNA</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#f7e7c5" />
   <style>
     .spacer { margin: 24px 0; }
     .video-wrapper {
@@ -37,24 +39,19 @@
   </div>
 
   <div class="container" style="text-align:center">
-    <h1 style="font-size: 24px; margin-top: 20px;">おまもり屋 KAMUNA</h1>
-    <p style="font-size: 16px; margin-bottom: 32px;">癒しと願いを込めた、1日1回の小さな祈り</p>
-    <br/>
+    <h1 style="font-weight:bold; font-size: 20px; margin-bottom: 16px;">おまもり屋 KAMUNA</h1>
+    <p style="font-size: 14px; margin-bottom: 24px;">癒しと願いを込めた、1日1回の小さな祈り</p>
 
     <h2 style="font-weight: bold;">あなたの御守り</h2>
 
     <p style="font-size: 16px; line-height: 1.6;">
-      生成された御守りを見ながら30秒間 深呼吸。<br>
+      生成された御守りを見ながら深呼吸。<br>
       身体の変化や空気の流れをやさしく感じてみましょう。
     </p>
-  　  今、何秒くらい深く息を吐けますか？
-　  </p>
-    
+
     <canvas id="omamoriCanvas" width="270" height="380"></canvas>
 
     <div class="spacer"></div>
-    <br/>
-    <br/>
 
     <p style="font-size: 16px; font-weight: bold;">ヒーリング動画でさらに深いリラックス</p>
     <p style="font-size: 14px;">御守りと一緒に、KAMUNAの癒しの波動を受け取ってください</p>
@@ -62,9 +59,6 @@
     <div class="video-wrapper">
       <iframe id="healingVideo" src="" allowfullscreen></iframe>
     </div>
-    <br/>
-    <br/>
-    <br/>
 
     <div class="spacer"></div>
 
@@ -80,8 +74,6 @@
     </div>
 
     <div class="spacer"></div>
-    <br/>
-    <br/>
 
     <div class="share-box">
       <p style="font-weight: bold;">御守りが心に響いたら、シェアして広げてください</p>
@@ -89,8 +81,6 @@
       <a href="https://www.facebook.com/sharer/sharer.php?u=https://kamuna-omamori.github.io/omamori-app/" target="_blank">Facebookでシェア</a><br>
       <a href="https://line.me/R/msg/text/?KAMUNAのおまもりを試してみて✨%0Ahttps://kamuna-omamori.github.io/omamori-app/" target="_blank">LINEで送る</a>
     </div>
-    <br/>
-    <br/>
 
     <div class="spacer"></div>
 
@@ -103,8 +93,6 @@
         PayPayでお賽銭をする
       </a>
     </div>
-    <br/>
-    <br/>
 
     <div class="spacer"></div>
 
@@ -123,5 +111,12 @@
   </div>
 
   <script src="scripts.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js")
+        .then(() => console.log("Service Worker registered!"))
+        .catch((err) => console.error("SW registration failed:", err));
+    }
+  </script>
 </body>
 </html>
