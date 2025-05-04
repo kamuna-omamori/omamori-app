@@ -14,6 +14,7 @@ document.getElementById("omamoriForm").addEventListener("submit", function (even
   ];
   const randomVideo = videoUrls[Math.floor(Math.random() * videoUrls.length)];
 
+  // 制限中の処理
   if (lastGenerated && now - parseInt(lastGenerated) < twelveHours) {
     document.getElementById("omamoriResult").innerHTML = `
       <div class="tsukimi-box">
@@ -52,13 +53,22 @@ document.getElementById("omamoriForm").addEventListener("submit", function (even
     return;
   }
 
-  // 制限されていなければ、ここで記録し、御守り生成を開始
+  // 制限解除・記録
   localStorage.setItem("lastGenerated", now);
 
+  // 入力値取得
   const name = document.getElementById("nameInput").value;
   const wishSelect = document.getElementById("wishSelect").value;
   const customWish = document.getElementById("customWish").value;
   const wish = customWish ? customWish : wishSelect;
+
+  // 出力領域にCanvasとVideoを生成
+  document.getElementById("omamoriResult").innerHTML = `
+    <canvas id="omamoriCanvas" width="300" height="470"></canvas>
+    <div id="videoContainer">
+      <iframe id="healingVideo" width="100%" height="315" src="${randomVideo}" allowfullscreen></iframe>
+    </div>
+  `;
 
   const canvas = document.getElementById("omamoriCanvas");
   const ctx = canvas.getContext("2d");
@@ -82,6 +92,4 @@ document.getElementById("omamoriForm").addEventListener("submit", function (even
       ctx.fillText(verticalText[i], x, yStart + i * lineHeight);
     }
   };
-
-  document.getElementById("healingVideo").src = randomVideo;
 });
