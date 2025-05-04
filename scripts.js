@@ -28,3 +28,9 @@ form.addEventListener('submit', async function(e) {
     }
   };
 
+  const playlist = [
+    "https://www.youtube.com/embed/videoseries?list=PLfsSnb5JQ6XEmAOiYGBZ8YOPK-Eu1B1mE"
+  ];
+  const randomUrl = playlist[Math.floor(Math.random() * playlist.length)];
+  video.src = randomUrl;
+});
