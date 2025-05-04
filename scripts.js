@@ -1,57 +1,11 @@
-// index.html 用（フォーム送信時に遷移）
-document.getElementById("omamoriForm")?.addEventListener("submit", function (event) {
+document.getElementById("omamoriForm").addEventListener("submit", function (event) {
   event.preventDefault();
-  const name = document.getElementById("nameInput").value;
-  const wishSelect = document.getElementById("wishSelect").value;
-  const customWish = document.getElementById("customWish").value;
-  const wish = customWish ? customWish : wishSelect;
 
-  // ローカルストレージに保存して result.html に渡す
-  localStorage.setItem("name", name);
-  localStorage.setItem("wish", wish);
+  const lastGenerated = localStorage.getItem("lastGenerated");
+  const now = Date.now();
+  const twelveHours = 12 * 60 * 60 * 1000;
 
-  window.location.href = "result.html";
-});
-
-// result.html 用（ページ読み込み時に表示）
-window.addEventListener("DOMContentLoaded", function () {
-  const name = localStorage.getItem("name") || "";
-  const wish = localStorage.getItem("wish") || "";
-
-  const canvas = document.getElementById("omamoriCanvas");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  const backgroundImage = new Image();
-  backgroundImage.src = "assets/omamori_background.jpg";
-
-  backgroundImage.onload = function () {
-  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-  ctx.font = "30px serif";
-  ctx.fillStyle = "#000";
-  ctx.textAlign = "center";
-
-  const centerX = canvas.width / 2;
-  const lineHeight = 24;
-
-  // 行数に応じて中央から開始位置を調整
-  const totalLines = Math.max(name.length, wish.length);
-  const totalHeight = totalLines * lineHeight;
-  const startY = (canvas.height - totalHeight) / 2 + 10;
-
-  for (let i = 0; i < name.length; i++) {
-    ctx.fillText(name[i], centerX - 30, startY + i * lineHeight);
-  }
-
-  for (let j = 0; j < wish.length; j++) {
-    ctx.fillText(wish[j], centerX + 30, startY + j * lineHeight);
-  }
-};
-
-  backgroundImage.onerror = function () {
-    console.error("画像の読み込みに失敗しました。ファイルパスを確認してください。");
-  };
-
-  // ヒーリング動画のランダム再生
+  // ランダム動画リスト
   const videoUrls = [
     "https://www.youtube.com/embed/Jtgcss9Fygo?autoplay=1",
     "https://www.youtube.com/embed/P1fGiun03Sk?autoplay=1",
@@ -59,7 +13,82 @@ window.addEventListener("DOMContentLoaded", function () {
     "https://www.youtube.com/embed/cHcDAJ9Au0E?autoplay=1",
     "https://www.youtube.com/embed/7sIHFbId6SE?autoplay=1"
   ];
-  const selectedUrl = videoUrls[Math.floor(Math.random() * videoUrls.length)];
-  const iframe = document.getElementById("healingVideo");
-  if (iframe) iframe.src = selectedUrl;
+  const randomVideo = videoUrls[Math.floor(Math.random() * videoUrls.length)];
+
+  // 制限時間内（12時間未満）の場合は代替表示
+  if (lastGenerated && now - parseInt(lastGenerated) < twelveHours) {
+    document.getElementById("omamoriResult").innerHTML = `
+      <div class="tsukimi-box">
+        <p class="tsukimi-title">🌑 新月の大祓会（Zoom）ご案内 🌑</p>
+        <a class="tsukimi-button" href="https://docs.google.com/forms/d/e/1FAIpQLSfpOiJ8jg00s8nSXmiD6kzCUOJP19XhNR0mb9WFrAjxTfbEFw/viewform?usp=dialog" target="_blank">
+          ▶ ご参加はこちら
+        </a>
+        <p class="tsukimi-text">
+          KAMUNAの祈りと祓いの会を新月の日に行っています。<br><br>
+          このアプリで神秘的なエネルギーを感じた方は、ぜひご参加ください。
+        </p>
+      </div>
+
+      <br><br><br>
+
+      <p style="font-size: 16px; line-height: 1.6; font-weight: bold;">
+        KAMUNAのヒーリング動画で更にリラックス<br><br>
+        呼吸や身体の変化を視聴する前後で感じてみてくださいね
+      </p>
+
+      <div id="videoContainer">
+        <iframe id="healingVideo" width="100%" height="315" src="${randomVideo}" allowfullscreen></iframe>
+      </div>
+
+      <br><br>
+
+      <div class="sns-links">
+        <p style="font-weight: bold;">KAMUNAのSNS</p>
+        <ul style="list-style: none; padding: 0;">
+          <li><a href="https://www.facebook.com/profile.php?id=61575515507055" target="_blank">Facebook</a></li>
+          <li><a href="https://www.instagram.com/kamuna_organic" target="_blank">Instagram</a></li>
+          <li><a href="https://note.com/kamuna_9999" target="_blank">note</a></li>
+        </ul>
+      </div>
+    `;
+    return;
+  }
+
+  // 初回または12時間以上経過 → 通常処理を実行
+  localStorage.setItem("lastGenerated", now);
+
+  // 入力値の取得
+  const name = document.getElementById("nameInput").value;
+  const wishSelect = document.getElementById("wishSelect").value;
+  const customWish = document.getElementById("customWish").value;
+  const wish = customWish ? customWish : wishSelect;
+
+  // 護符画像の描画
+  const canvas = document.getElementById("omamoriCanvas");
+  const ctx = canvas.getContext("2d");
+
+  const backgroundImage = new Image();
+  backgroundImage.src = "assets/omamori_background.jpg"; // 背景画像パスに合わせて調整
+
+  backgroundImage.onload = function () {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#000";
+    ctx.font = "20px serif";
+    ctx.textAlign = "center";
+
+    // 縦書き処理（1文字ずつ回転）
+    const verticalText = `${name}　${wish}`;
+    const x = canvas.width / 2;
+    const yStart = 80;
+    const lineHeight = 24;
+
+    for (let i = 0; i < verticalText.length; i++) {
+      ctx.fillText(verticalText[i], x, yStart + i * lineHeight);
+    }
+  };
+
+  // ランダム動画再生
+  document.getElementById("healingVideo").src = randomVideo;
 });
