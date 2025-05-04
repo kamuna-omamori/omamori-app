@@ -25,24 +25,27 @@ window.addEventListener("DOMContentLoaded", function () {
   backgroundImage.src = "assets/omamori_background.jpg";
 
   backgroundImage.onload = function () {
-    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-    ctx.font = "20px serif";
-    ctx.fillStyle = "#000";
-    ctx.textAlign = "center";
+  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+  ctx.font = "20px serif";
+  ctx.fillStyle = "#000";
+  ctx.textAlign = "center";
 
-    // 縦書き：名前（左）と願い（右）を一文字ずつ描画
-    const centerX = canvas.width / 2;
-    const startY = 100;
-    const lineHeight = 24;
+  const centerX = canvas.width / 2;
+  const lineHeight = 24;
 
-    for (let i = 0; i < name.length; i++) {
-      ctx.fillText(name[i], centerX - 30, startY + i * lineHeight);
-    }
+  // 行数に応じて中央から開始位置を調整
+  const totalLines = Math.max(name.length, wish.length);
+  const totalHeight = totalLines * lineHeight;
+  const startY = (canvas.height - totalHeight) / 2 + 10;
 
-    for (let j = 0; j < wish.length; j++) {
-      ctx.fillText(wish[j], centerX + 30, startY + j * lineHeight);
-    }
-  };
+  for (let i = 0; i < name.length; i++) {
+    ctx.fillText(name[i], centerX - 30, startY + i * lineHeight);
+  }
+
+  for (let j = 0; j < wish.length; j++) {
+    ctx.fillText(wish[j], centerX + 30, startY + j * lineHeight);
+  }
+};
 
   backgroundImage.onerror = function () {
     console.error("画像の読み込みに失敗しました。ファイルパスを確認してください。");
