@@ -6,38 +6,84 @@
   <title>御守り生成結果 - KAMUNA</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .spacer { margin: 24px 0; }
+    body {
+      font-family: "Hiragino Mincho Pro", "Yu Mincho", serif;
+      background-color: #faf8f3;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 24px;
+      background-color: #fffef9;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #7a4b00;
+      margin-bottom: 4px;
+    }
+
+    h2 {
+      font-size: 22px;
+      color: #5a3e1b;
+      margin-top: 24px;
+    }
+
+    .spacer {
+      margin: 24px 0;
+    }
+
     .video-wrapper {
       position: relative;
       padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
       max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     }
+
     .video-wrapper iframe {
       position: absolute;
       top: 0; left: 0;
       width: 100%;
       height: 100%;
     }
-    .sns-links ul, .share-box a {
-      margin-bottom: 8px;
-      display: inline-block;
-    }
+
     canvas#omamoriCanvas {
       border: 1px solid #ccc;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      margin-top: 16px;
     }
+
     .share-box, .offering-box, .sns-links {
-      background: linear-gradient(145deg, #fffef5, #f7f0e5);
+      background: linear-gradient(145deg, #fffdf4, #f6f0e5);
       border-radius: 12px;
       padding: 20px;
-      margin: 0 auto;
-      max-width: 360px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      margin: 0 auto 24px;
+      max-width: 400px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
     }
+
     .share-box p, .offering-box p, .sns-links p {
       margin-bottom: 12px;
+    }
+
+    .sns-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sns-links li {
+      margin-bottom: 8px;
     }
   </style>
 </head>
@@ -47,26 +93,22 @@
     <canvas id="particleCanvas" style="width:100%; height:100%; display:block;"></canvas>
   </div>
 
-  <div class="container" style="text-align:center; max-width: 640px; margin: 0 auto; padding: 16px;">
+  <div class="container">
     <h1>おまもり屋 KAMUNA</h1>
     <p style="font-size:14px; color:gray;">
       癒しと願いを込めた、1日1回の小さな祈り
     </p>
-    <div class="spacer"></div>
 
-    <h2 style="font-weight: bold;">あなたの御守り</h2>
+    <h2>あなたの御守り</h2>
     <p style="font-size: 16px; line-height: 1.6;">
       生成された御守りを見ながら30秒 深呼吸。<br>
-      身体の変化や空気の流れをやさしく感じてみましょう。
-          <br/>
+      身体の変化や空気の流れをやさしく感じてみましょう。<br>
       今、何秒くらい深く息を吐けますか？
     </p>
     <div class="healing-message"></div>
     <canvas id="omamoriCanvas" width="270" height="380"></canvas>
 
     <div class="spacer"></div>
-    <br/>
-    <br/>
 
     <p style="font-size: 16px; font-weight: bold;">ヒーリング動画でさらに深いリラックス</p>
     <p style="font-size: 14px;">御守りと一緒に、KAMUNAの癒しの波動を受け取ってください</p>
@@ -75,27 +117,16 @@
       <iframe id="healingVideo" src="" allowfullscreen></iframe>
     </div>
 
-    <div class="spacer"></div>
-    <br/>
-    <br/>
-
     <div class="share-box">
       <p style="font-weight: bold;">御守りが心に響いたら、<br>シェアして広げてください</p>
       <a href="https://twitter.com/intent/tweet?text=KAMUNAのおまもりで癒されました✨&url=https://kamuna-omamori.github.io/omamori-app/" target="_blank">X（旧Twitter）でシェア</a><br>
       <a href="https://www.facebook.com/sharer/sharer.php?u=https://kamuna-omamori.github.io/omamori-app/" target="_blank">Facebookでシェア</a><br>
       <a href="https://line.me/R/msg/text/?KAMUNAのおまもりを試してみて✨%0Ahttps://kamuna-omamori.github.io/omamori-app/" target="_blank">LINEで送る</a>
-
       <div style="margin-top: 20px;">
         <p style="font-weight:bold;">📺 KAMUNAのYouTubeも応援してね</p>
-        <div class="g-ytsubscribe" 
-             data-channelid="UCQHe8NrL0GOLXrrahVsclJQ" 
-             data-layout="default" 
-             data-count="default">
-        </div>
+        <div class="g-ytsubscribe" data-channelid="UCQHe8NrL0GOLXrrahVsclJQ" data-layout="default" data-count="default"></div>
       </div>
     </div>
-
-    <div class="spacer"></div>
 
     <div class="offering-box">
       <p style="font-weight: bold;">
@@ -107,11 +138,9 @@
       </a>
     </div>
 
-    <div class="spacer"></div>
-
     <div class="sns-links">
       <p style="font-weight: bold;">KAMUNAのSNS</p>
-      <ul style="list-style: none; padding: 0;">
+      <ul>
         <li><a href="https://www.facebook.com/profile.php?id=61575515507055" target="_blank">Facebook</a></li>
         <li><a href="https://www.instagram.com/kamuna_organic" target="_blank">Instagram（オーガニックケアサロン・神戸）</a></li>
         <li><a href="https://note.com/kamuna_9999" target="_blank">note（KAMUNAの世界をことばで綴る）</a></li>
@@ -123,7 +152,6 @@
 
   <script src="scripts.js"></script>
   <script>
-    // healingVideo のランダム表示
     const videoUrls = [
       "https://www.youtube.com/embed/Jtgcss9Fygo?autoplay=1",
       "https://www.youtube.com/embed/P1fGiun03Sk?autoplay=1",
@@ -134,7 +162,6 @@
     const selected = videoUrls[Math.floor(Math.random() * videoUrls.length)];
     document.getElementById("healingVideo").src = selected;
 
-    // 制限メッセージの処理
     const params = new URLSearchParams(window.location.search);
     const isLimited = params.get("limit") === "1";
     if (isLimited) {
